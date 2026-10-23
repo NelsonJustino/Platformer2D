@@ -212,9 +212,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3033235292169544466, guid: 2befafc9d784081448a0a59d7313655d, type: 3}
       propertyPath: m_text
-      value: 'Credits
-
-'
+      value: About
       objectReference: {fileID: 0}
     - target: {fileID: 4944321377320585287, guid: 2befafc9d784081448a0a59d7313655d, type: 3}
       propertyPath: m_Name
