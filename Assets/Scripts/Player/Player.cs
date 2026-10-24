@@ -9,7 +9,10 @@ public class Player : MonoBehaviour
     public Vector2 friction = new Vector2(.1f, 0);
 
     public float speed;
+    public float speedRun;
     public float jumpForce;
+
+    private float _currentSpeed;
     // Update is called once per frame
     void Update()
     {
@@ -19,15 +22,27 @@ public class Player : MonoBehaviour
 
     void PlayerMovement()
     {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            _currentSpeed = speedRun;
+        }
+        else
+        {
+            _currentSpeed = speed;
+        }
+
+        // It also works for running mechanics 
+        //myrigidbody2D.velocity = new Vector2(Input.GetKey(KeyCode.LeftShift) ? speedRun : speed, myrigidbody2D.velocity.y);
+
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             //myrigidbody2D.MovePosition(myrigidbody2D.position - velocity * Time.deltaTime);
-            myrigidbody2D.velocity = new Vector2(-speed, myrigidbody2D.velocity.y);
+            myrigidbody2D.velocity = new Vector2(-_currentSpeed, myrigidbody2D.velocity.y);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             //myrigidbody2D.MovePosition(myrigidbody2D.position + velocity * Time.deltaTime);
-            myrigidbody2D.velocity = new Vector2(speed, myrigidbody2D.velocity.y);
+            myrigidbody2D.velocity = new Vector2(_currentSpeed, myrigidbody2D.velocity.y);
         }
 
         if(myrigidbody2D.velocity.x < 0)

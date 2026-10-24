@@ -202,8 +202,8 @@ Transform:
   m_GameObject: {fileID: 2853326}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: -1.2, z: 0}
-  m_LocalScale: {x: 20, y: 2, z: 1}
+  m_LocalPosition: {x: 17.9, y: -2, z: 0}
+  m_LocalScale: {x: 100, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -768,8 +768,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myrigidbody2D: {fileID: 1601827424}
-  velocity: {x: 10, y: 0}
+  friction: {x: 0.1, y: 0}
   speed: 10
+  speedRun: 20
   jumpForce: 8
 --- !u!1 &1789930840
 GameObject:
@@ -1267,7 +1268,7 @@ Transform:
   m_GameObject: {fileID: 2007111668}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.3, y: 0.4, z: 0}
+  m_LocalPosition: {x: 8.3, y: -0.4, z: 0}
   m_LocalScale: {x: 2, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
