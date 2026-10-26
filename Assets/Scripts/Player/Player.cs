@@ -81,13 +81,14 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        /*if(collision.gameObject.tag == "Ground")
         {
             DOTween.Kill(myrigidbody2D.transform);
             PlayerOnGroundScale();
             myrigidbody2D.transform.localScale = Vector2.one;
         }
-        else if(collision.gameObject.tag == "Elastic")
+        else*/ 
+        if(collision.gameObject.tag == "Elastic")
         {
             myrigidbody2D.transform.localScale = Vector2.one;
             DOTween.Kill(myrigidbody2D.transform);
