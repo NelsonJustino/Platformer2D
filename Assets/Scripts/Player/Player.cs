@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
             PlayerOnGroundScale();
             myrigidbody2D.transform.localScale = Vector2.one;
         }
-        else*/ 
+        else*/
         if(collision.gameObject.tag == "Elastic")
         {
             myrigidbody2D.transform.localScale = Vector2.one;
@@ -102,12 +102,10 @@ public class Player : MonoBehaviour
         myrigidbody2D.transform.DOScaleX(jumpScaleX, animationDuration).SetLoops(2,LoopType.Yoyo).SetEase(ease);
     }
     
-    void PlayerOnGroundScale()
+    /*void PlayerOnGroundScale()
     {
         myrigidbody2D.transform.DOScaleY(groundScaleY, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
         myrigidbody2D.transform.DOScaleX(groundScaleX, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-    }
-
-
+    }*/
 
 }
