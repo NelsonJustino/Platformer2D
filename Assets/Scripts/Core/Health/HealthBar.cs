@@ -11,8 +11,17 @@ public class HealthBar : MonoBehaviour
     private bool _isDead = false;
     private int _currentLife;
 
+    [Header("Death Animation")]
+    public Animator animator;
+    public string deathBool = "Bool_Death";
+
+    private Player _player;
+
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+        _player = GetComponent<Player>();
+
         Init();
     }
 
@@ -36,11 +45,23 @@ public class HealthBar : MonoBehaviour
 
     public void Death()
     {
+        if (_isDead) return;
+
         _isDead = true;
 
-       if(destroyOnKill == true)
+        if (_player != null)
         {
-            Destroy(gameObject,delayToKill);
+            _player.enabled = false;
+        }
+
+        if (animator != null)
+        {
+            animator.SetBool(deathBool, true);
+        }
+
+        if (destroyOnKill == true)
+        {
+            Destroy(gameObject, delayToKill);
         }
     }
 }

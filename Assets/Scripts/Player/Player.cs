@@ -21,18 +21,32 @@ public class Player : MonoBehaviour
     public float groundScaleY = .8f;
     public float groundScaleX = 1.5f;
     public float animationDuration = .3f;
-    private Ease ease = Ease.OutBack;
+    //private Ease ease = Ease.OutBack;
+
+    [Header("Animation Trigger")]
+    public string walkBool = "Bool_Walk";
+    public string runBool = "Bool_Run";
+    public string jumpUpBool = "Bool_Jump_Up";
+    public string jumpDownBool = "Bool_Jump_Down";
+    public string landingBool = "Bool_Landing";
+
+    private bool _isGrounded = true;
+    public Animator animator;
 
     // Update is called once per frame
     void Update()
     {
         PlayerMovement();
         PlayerJump();
+        JumpAnimation();
     }
 
     void PlayerMovement()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        bool isMoving = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
+        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+
+        if (isRunning)
         {
             _currentSpeed = speedRun;
         }
@@ -41,68 +55,91 @@ public class Player : MonoBehaviour
             _currentSpeed = speed;
         }
 
-        // It also works for running mechanics 
-        //myrigidbody2D.velocity = new Vector2(Input.GetKey(KeyCode.LeftShift) ? speedRun : speed, myrigidbody2D.velocity.y);
-
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
         {
-            //myrigidbody2D.MovePosition(myrigidbody2D.position - velocity * Time.deltaTime);
+            myrigidbody2D.transform.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
             myrigidbody2D.velocity = new Vector2(-_currentSpeed, myrigidbody2D.velocity.y);
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.D))
         {
-            //myrigidbody2D.MovePosition(myrigidbody2D.position + velocity * Time.deltaTime);
             myrigidbody2D.velocity = new Vector2(_currentSpeed, myrigidbody2D.velocity.y);
+            myrigidbody2D.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
 
-        if(myrigidbody2D.velocity.x < 0)
+        if (myrigidbody2D.velocity.x < 0)
         {
             myrigidbody2D.velocity += friction;
-        } 
+        }
         else if (myrigidbody2D.velocity.x > 0)
         {
             myrigidbody2D.velocity -= friction;
         }
-    }
 
+        animator.SetBool(walkBool, _isGrounded && isMoving && !isRunning);
+        animator.SetBool(runBool, _isGrounded && isMoving && isRunning);
+    }
 
     void PlayerJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         {
+            _isGrounded = false;
+
             myrigidbody2D.velocity = Vector2.up * jumpForce;
-            myrigidbody2D.transform.localScale = Vector2.one;
 
-            DOTween.Kill(myrigidbody2D.transform);
+            animator.SetBool(jumpUpBool, true);
+            animator.SetBool(jumpDownBool, false);
+            animator.SetBool(landingBool, false);
+        }
+    }
 
-            PlayerJumpScale();
+    void JumpAnimation()
+    {
+        if (!_isGrounded)
+        {
+            if (myrigidbody2D.velocity.y > 0.1f)
+            {
+                animator.SetBool(jumpUpBool, true);
+                animator.SetBool(jumpDownBool, false);
+            }
+            else
+            {
+                animator.SetBool(jumpUpBool, false);
+                animator.SetBool(jumpDownBool, true);
+            }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        /*if(collision.gameObject.tag == "Ground")
+        if (collision.gameObject.CompareTag("Ground") ||
+            collision.gameObject.CompareTag("Elastic"))
         {
-            DOTween.Kill(myrigidbody2D.transform);
-            PlayerOnGroundScale();
-            myrigidbody2D.transform.localScale = Vector2.one;
-        }
-        else*/
-        if(collision.gameObject.tag == "Elastic")
-        {
-            myrigidbody2D.transform.localScale = Vector2.one;
-            DOTween.Kill(myrigidbody2D.transform);
-            PlayerJumpScale();
+            Debug.Log("PLAYER LANDED!");
+
+            _isGrounded = true;
+
+            animator.SetBool(jumpUpBool, false);
+            animator.SetBool(jumpDownBool, false);
+            animator.SetBool(landingBool, true);
         }
     }
 
-    void PlayerJumpScale()
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Elastic"))
+        {
+            _isGrounded = false;
+        }
+    }
+
+    /*void PlayerJumpScale()
     {
         myrigidbody2D.transform.DOScaleY(jumpScaleY, animationDuration).SetLoops(2,LoopType.Yoyo).SetEase(ease);
         myrigidbody2D.transform.DOScaleX(jumpScaleX, animationDuration).SetLoops(2,LoopType.Yoyo).SetEase(ease);
     }
     
-    /*void PlayerOnGroundScale()
+    void PlayerOnGroundScale()
     {
         myrigidbody2D.transform.DOScaleY(groundScaleY, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
         myrigidbody2D.transform.DOScaleX(groundScaleX, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
