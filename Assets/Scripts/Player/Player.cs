@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
         PlayerMovement();
         PlayerJump();
         JumpAnimation();
+        CheckLandingAnimation();
     }
 
     void PlayerMovement()
@@ -112,8 +113,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") ||
-            collision.gameObject.CompareTag("Elastic"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             Debug.Log("PLAYER LANDED!");
 
@@ -123,13 +123,28 @@ public class Player : MonoBehaviour
             animator.SetBool(jumpDownBool, false);
             animator.SetBool(landingBool, true);
         }
+        if (collision.gameObject.CompareTag("Elastic"))
+        {
+            JumpAnimation();
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Elastic"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             _isGrounded = false;
+        }
+    }
+
+    private void CheckLandingAnimation()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        if (stateInfo.IsName("ANIM_Astronaut_Jump_Landing") &&
+            stateInfo.normalizedTime >= 1f)
+        {
+            animator.SetBool(landingBool, false);
         }
     }
 
@@ -144,5 +159,4 @@ public class Player : MonoBehaviour
         myrigidbody2D.transform.DOScaleY(groundScaleY, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
         myrigidbody2D.transform.DOScaleX(groundScaleX, animationDuration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
     }*/
-
 }

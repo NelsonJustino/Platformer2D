@@ -1071,7 +1071,7 @@ MonoBehaviour:
   groundScaleX: 1.5
   animationDuration: 0.3
   walkBool: Bool_Walk
-  runBool: Bool_Walk
+  runBool: Bool_Run
   jumpUpBool: Bool_Jump_Up
   jumpDownBool: Bool_Jump_Down
   landingBool: Bool_Landing
