@@ -124,15 +124,6 @@ public class Player : MonoBehaviour
             animator.SetBool(jumpDownBool, false);
             animator.SetBool(landingBool, true);
         }
-      
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            _isGrounded = false;
-        }
         if (collision.gameObject.CompareTag("Elastic"))
         {
             animator.SetBool(jumpUpBool, true);
@@ -145,6 +136,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            _isGrounded = false;
+        }
+    }
+
     private void CheckLandingAnimation()
     {
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
@@ -154,6 +153,13 @@ public class Player : MonoBehaviour
         {
             animator.SetBool(landingBool, false);
         }
+
+        if (stateInfo.IsName("ANIM_Astronaut_Death") &&
+           stateInfo.normalizedTime >= 1f)
+        {
+            animator.SetBool(deathBool, false);
+        }
+
     }
 
     /*void PlayerJumpScale()
