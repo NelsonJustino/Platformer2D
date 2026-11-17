@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     public string jumpUpBool = "Bool_Jump_Up";
     public string jumpDownBool = "Bool_Jump_Down";
     public string landingBool = "Bool_Landing";
+    public string deathBool = "Bool_Death";
 
     private bool _isGrounded = true;
     public Animator animator;
@@ -123,10 +124,7 @@ public class Player : MonoBehaviour
             animator.SetBool(jumpDownBool, false);
             animator.SetBool(landingBool, true);
         }
-        if (collision.gameObject.CompareTag("Elastic"))
-        {
-            JumpAnimation();
-        }
+      
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -134,6 +132,16 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             _isGrounded = false;
+        }
+        if (collision.gameObject.CompareTag("Elastic"))
+        {
+            animator.SetBool(jumpUpBool, true);
+            animator.SetBool(jumpDownBool, false);
+            animator.SetBool(landingBool, false);
+        }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            animator.SetBool(deathBool, true);
         }
     }
 

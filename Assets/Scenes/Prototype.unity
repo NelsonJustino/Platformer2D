@@ -495,11 +495,11 @@ GameObject:
   - component: {fileID: 1043872960}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1043872959
 Transform:
   m_ObjectHideFlags: 0
@@ -1075,6 +1075,7 @@ MonoBehaviour:
   jumpUpBool: Bool_Jump_Up
   jumpDownBool: Bool_Jump_Down
   landingBool: Bool_Landing
+  deathBool: Bool_Death
   animator: {fileID: 741918780}
 --- !u!114 &1601827429
 MonoBehaviour:
