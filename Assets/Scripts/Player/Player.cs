@@ -6,7 +6,7 @@ using DG.Tweening;
 public class Player : MonoBehaviour
 {
     public Rigidbody2D myrigidbody2D;
-    public GameObject ground;
+    //public GameObject ground;
 
     [Header("Speed Setup")]
     public Vector2 friction = new Vector2(.1f, 0);
@@ -60,13 +60,13 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            myrigidbody2D.transform.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
+            myrigidbody2D.transform.localScale = new Vector3(-0.1f, 0.1f, 0.1f);
             myrigidbody2D.velocity = new Vector2(-_currentSpeed, myrigidbody2D.velocity.y);
         }
         else if (Input.GetKey(KeyCode.D))
         {
             myrigidbody2D.velocity = new Vector2(_currentSpeed, myrigidbody2D.velocity.y);
-            myrigidbody2D.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            myrigidbody2D.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         }
 
         if (myrigidbody2D.velocity.x < 0)
