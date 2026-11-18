@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
         PlayerJump();
         JumpAnimation();
         CheckLandingAnimation();
+        CheckDeathAnimation();
     }
 
     void PlayerMovement()
@@ -154,14 +155,19 @@ public class Player : MonoBehaviour
             animator.SetBool(landingBool, false);
         }
 
+    }
+
+    private void CheckDeathAnimation()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
         if (stateInfo.IsName("ANIM_Astronaut_Death") &&
-           stateInfo.normalizedTime >= 1f)
+             stateInfo.normalizedTime >= 1f)
         {
             animator.SetBool(deathBool, false);
         }
-
     }
-
+    
     /*void PlayerJumpScale()
     {
         myrigidbody2D.transform.DOScaleY(jumpScaleY, animationDuration).SetLoops(2,LoopType.Yoyo).SetEase(ease);
