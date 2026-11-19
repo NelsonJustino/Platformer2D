@@ -153,6 +153,7 @@ public class Player : MonoBehaviour
             stateInfo.normalizedTime >= 1f)
         {
             animator.SetBool(landingBool, false);
+            Reset();
         }
 
     }
@@ -167,7 +168,11 @@ public class Player : MonoBehaviour
             animator.SetBool(deathBool, false);
         }
     }
-    
+    private void Reset()
+    {
+        animator.SetBool(deathBool, false);
+    }
+
     /*void PlayerJumpScale()
     {
         myrigidbody2D.transform.DOScaleY(jumpScaleY, animationDuration).SetLoops(2,LoopType.Yoyo).SetEase(ease);
