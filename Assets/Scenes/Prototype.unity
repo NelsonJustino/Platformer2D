@@ -984,6 +984,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5192345004561658869, guid: 87aa57237b46a0a43a254604a5057f3f, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5956349598933014399, guid: 87aa57237b46a0a43a254604a5057f3f, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -3760,7 +3764,6 @@ GameObject:
   - component: {fileID: 1601827424}
   - component: {fileID: 1601827432}
   - component: {fileID: 1601827428}
-  - component: {fileID: 1601827429}
   - component: {fileID: 1601827430}
   - component: {fileID: 1601827431}
   m_Layer: 0
@@ -3842,23 +3845,6 @@ MonoBehaviour:
   landingBool: Bool_Landing
   deathBool: Bool_Death
   animator: {fileID: 741918780}
---- !u!114 &1601827429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601827423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60462959630a01543a214941c9364032, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingLife: 10
-  destroyOnKill: 0
-  delayToKill: 2
-  animator: {fileID: 0}
-  deathBool: Bool_Death
 --- !u!210 &1601827430
 SortingGroup:
   m_ObjectHideFlags: 0
